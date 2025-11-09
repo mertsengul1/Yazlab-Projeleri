@@ -1,0 +1,16 @@
+pyqt5
+fastapi
+uvicorn
+sqlalchemy
+sqlalchemy
+pymysql
+pydantic
+dotenv
+pandas
+openpyxl
+requests
+argon2-cffi
+python-multipart
+cryptography
+python-jose[cryptography]
+xlsxwriter

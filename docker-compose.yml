@@ -1,0 +1,35 @@
+services:
+  app:
+    build: .
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    command: uvicorn Backend.src.services.app:app --host 0.0.0.0 --port 8000 --reload
+
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_turkish_ci
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    - mysql_data:/var/lib/mysql
+
+
+volumes:
+  mysql_data:
